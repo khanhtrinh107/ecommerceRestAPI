@@ -4,6 +4,7 @@ import com.example.demo.entity.dto.Cart;
 import com.example.demo.service.SaleOrderService;
 import com.example.demo.utils.utils;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class CartController {
     private SaleOrderService saleOrderService;
 
     @PostMapping("/cart")
-    public ResponseEntity<?> AddToCart(@RequestBody Cart cart , HttpSession session){
+    public ResponseEntity<?> AddToCart(@RequestBody @Valid Cart cart , HttpSession session){
         Map<Integer,Cart> cartMap = (Map<Integer, Cart>) session.getAttribute("cart");
         int productId = cart.getProductId();
         if(cartMap == null)
@@ -45,7 +46,7 @@ public class CartController {
         return new ResponseEntity<>(cartMap, HttpStatus.OK);
     }
     @PutMapping("/cart")
-    public ResponseEntity<?> updateCart(@RequestBody Cart cart , HttpSession session){
+    public ResponseEntity<?> updateCart(@RequestBody @Valid  Cart cart , HttpSession session){
         Map<Integer,Cart> cartMap = (Map<Integer, Cart>) session.getAttribute("cart");
         Cart c = cartMap.get(cart.getProductId());
         c.setQuantity(cart.getQuantity());

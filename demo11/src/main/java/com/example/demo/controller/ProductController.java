@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.Product;
 import com.example.demo.entity.dto.ProductDto;
 import com.example.demo.exception.ObjectExistedException;
 import com.example.demo.exception.UserNotFoundException;
@@ -12,13 +13,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ProductController {
     @Autowired
     private ProductService productService;
     @GetMapping("/product")
-    public ResponseEntity<?> getProducts(){
-        return new ResponseEntity<>(productService.findAll() , HttpStatus.OK);
+    public ResponseEntity<?> getProducts(@RequestParam(name = "page") int page , @RequestParam(name = "size") int size , @RequestParam(name = "domain") String domain , @RequestParam(name = "dir") String dir){
+        List<Product> list = productService.findAll(size,page,domain,dir).getContent();
+        return new ResponseEntity<>(list,HttpStatus.OK);
     }
     @PreAuthorize("hasRole('ADMIN') or hasRole('EDITOR')")
     @PostMapping("/product")

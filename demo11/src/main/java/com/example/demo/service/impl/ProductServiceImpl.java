@@ -8,6 +8,10 @@ import com.example.demo.repository.CategoryRepository;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -19,9 +23,17 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+
+
     @Override
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public Page<Product> findAll(int size, int page, String domain , String dir) {
+        Sort sort = Sort.by(domain);
+        if(dir.equals("asc"))
+            sort.ascending();
+        else if(dir.equals("desc"))
+            sort.descending();
+        Pageable pageable = PageRequest.of(page,size,sort);
+        return productRepository.findAll(pageable);
     }
 
     @Override

@@ -32,9 +32,21 @@ public class ProductServiceImpl implements ProductService {
             sort.ascending();
         else if(dir.equals("desc"))
             sort.descending();
-        Pageable pageable = PageRequest.of(page,size,sort);
+        Pageable pageable = PageRequest.of(page-1,size,sort);
         return productRepository.findAll(pageable);
     }
+
+    @Override
+    public Page<Product> searchByProductName(int size, int page, String domain, String dir, String keyword) {
+        Sort sort = Sort.by(domain);
+        if(dir.equals("asc"))
+            sort.ascending();
+        else if (dir.equals("desc"))
+            sort.descending();
+        Pageable pageable1 = PageRequest.of(page-1,size,sort);
+        return productRepository.searchByProductName(keyword,pageable1);
+    }
+
 
     @Override
     public Product findById(int id) throws UserNotFoundException {

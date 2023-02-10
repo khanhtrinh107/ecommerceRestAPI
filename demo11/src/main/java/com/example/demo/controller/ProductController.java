@@ -24,6 +24,11 @@ public class ProductController {
         List<Product> list = productService.findAll(size,page,domain,dir).getContent();
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
+    @GetMapping("/product/search")
+    public ResponseEntity<?> searchProduct(@RequestParam(name = "page" , required = false , defaultValue = "1") int page , @RequestParam(name = "size" ,required = false , defaultValue = "5") int size,@RequestParam(name = "domain" , required = false , defaultValue = "productName") String domain , @RequestParam(name = "dir" ,required = false , defaultValue = "asc") String dir , @RequestParam(name = "keyword" ,required = false , defaultValue = "") String keyword){
+        List<Product> list = productService.searchByProductName(size,page,domain,dir,keyword).getContent();
+        return new ResponseEntity<>(list,HttpStatus.OK);
+    }
     @PreAuthorize("hasRole('ADMIN') or hasRole('EDITOR')")
     @PostMapping("/product")
     public ResponseEntity<?> addProduct(@RequestBody @Valid ProductDto productDto) throws ObjectExistedException {

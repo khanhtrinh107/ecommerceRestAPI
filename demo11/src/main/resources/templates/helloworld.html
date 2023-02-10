@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .h1h1h{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1 id = "id1"  class="h1h1h" >Hello world</h1>
+<button onclick="cl()" id = "hz" >HEHEHEH</button>
+</body>
+<script>
+    function cl(){
+        var randomColor = Math.floor(Math.random()*16777215).toString(16);
+        const x = document.getElementById("id1").style.color = "#" +  randomColor;
+    }
+</script>
+</html>

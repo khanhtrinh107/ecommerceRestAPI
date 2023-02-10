@@ -5,6 +5,8 @@ import com.example.demo.entity.dto.SignUpRequest;
 import com.example.demo.exception.ObjectExistedException;
 import com.example.demo.exception.UserNotFoundException;
 
+import java.util.List;
+
 public interface UserService {
     User findByUserName(String username);
     User findByEmail(String email);
@@ -13,4 +15,6 @@ public interface UserService {
 
     User findById(int id) throws UserNotFoundException;
     void delete(int id) throws UserNotFoundException;
+
+    List<User> findUserBuyProduct();
 }

@@ -105,6 +105,9 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
-
+    @Override
+    public List<User> findUserBuyProduct() {
+        return userRepository.findUserBuyProduct();
+    }
 
 }

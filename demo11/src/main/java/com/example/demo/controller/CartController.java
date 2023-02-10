@@ -22,7 +22,7 @@ public class CartController {
     private SaleOrderService saleOrderService;
 
     @PostMapping("/cart")
-    public ResponseEntity<?> AddToCart(@RequestBody @Valid Cart cart , HttpSession session){
+    public ResponseEntity<?> AddToCart(@RequestBody  Cart cart , HttpSession session){
         Map<Integer,Cart> cartMap = (Map<Integer, Cart>) session.getAttribute("cart");
         int productId = cart.getProductId();
         if(cartMap == null)

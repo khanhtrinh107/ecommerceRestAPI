@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.dto.UserBuyTheMost;
 import com.example.demo.entity.dto.statistics;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.UserService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,5 +37,14 @@ public class AdminController {
             list.add(new statistics(o[0].toString() , Integer.parseInt(o[1].toString()),Double.parseDouble(o[2].toString())));
         }
         return new ResponseEntity<>(list,HttpStatus.OK);
+    }
+    @GetMapping("/userBuyTheMost")
+    public ResponseEntity<?> userBuyTheMost(){
+        List<Object[]> list = userService.findUserBuyTheMost();
+        List<UserBuyTheMost> userBuyTheMosts = new ArrayList<>();
+        for(Object[] o : list){
+            userBuyTheMosts.add(new UserBuyTheMost(Integer.parseInt(o[0].toString()),o[1].toString(),Double.parseDouble(o[2].toString())));
+        }
+        return new ResponseEntity<>(userBuyTheMosts,HttpStatus.OK);
     }
 }

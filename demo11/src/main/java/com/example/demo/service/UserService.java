@@ -17,4 +17,5 @@ public interface UserService {
     void delete(int id) throws UserNotFoundException;
 
     List<User> findUserBuyProduct();
+    List<Object[]> findUserBuyTheMost();
 }

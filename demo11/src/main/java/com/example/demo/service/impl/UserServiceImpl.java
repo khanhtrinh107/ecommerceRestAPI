@@ -110,4 +110,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUserBuyProduct();
     }
 
+    @Override
+    public List<Object[]> findUserBuyTheMost() {
+        return userRepository.findUserBuyTheMost();
+    }
+
 }

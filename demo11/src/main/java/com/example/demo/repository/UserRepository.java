@@ -12,4 +12,7 @@ public interface UserRepository extends JpaRepository<User , Integer> {
 
     @Query("select u from User u inner join SaleOrder s on u.userId = s.user.userId")
     List<User> findUserBuyProduct();
+
+    @Query("select u.userId , u.username , sum(s.amount) from User u inner join SaleOrder s on u.userId = s.user.userId group by u.userId order by s.amount desc ")
+    List<Object[]> findUserBuyTheMost();
 }

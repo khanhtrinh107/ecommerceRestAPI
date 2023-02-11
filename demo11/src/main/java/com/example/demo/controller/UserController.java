@@ -54,10 +54,6 @@ public class UserController {
         return new ResponseEntity<>(userService.create(sign), HttpStatus.CREATED);
     }
 
-    @GetMapping("/buy")
-    public ResponseEntity<?> findUserBuyProduct(){
-        return new ResponseEntity<>(userService.findUserBuyProduct(),HttpStatus.OK);
-    }
     @GetMapping("/auth")
     public String authen(){
         return "Authenticated page";

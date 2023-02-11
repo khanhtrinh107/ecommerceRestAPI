@@ -86,4 +86,9 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(id).orElseThrow(() -> new UserNotFoundException("No Produt have id " + id));
         productRepository.deleteById(id);
     }
+
+    @Override
+    public List<Object[]> statistics() {
+        return productRepository.statitics();
+    }
 }

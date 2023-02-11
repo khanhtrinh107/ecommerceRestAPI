@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product,Integer> {
@@ -14,4 +15,7 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
 
     @Query("select p from Product p where p.productName like %?1% ")
     Page <Product> searchByProductName(String productName , Pageable pageable);
+
+    @Query("select p.productName , sum(o.quantity) , sum(o.initPrice*o.quantity) from Product p inner join OrderDetail o on p.productId = o.product.productId group by p.productId order by sum(o.initPrice*o.quantity) desc ")
+    List<Object[]> statitics();
 }

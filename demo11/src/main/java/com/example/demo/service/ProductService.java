@@ -16,4 +16,6 @@ public interface ProductService {
     Product create(ProductDto productDto) throws ObjectExistedException;
     Product update(ProductDto productDto , int id) throws ObjectExistedException, UserNotFoundException;
     void delete(int id) throws UserNotFoundException;
+
+    List<Object[]> statistics();
 }

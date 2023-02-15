@@ -30,4 +30,6 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<OrderDetail> orderDetails;
+    @OneToMany(mappedBy = "product" , cascade = CascadeType.ALL)
+    private Set<Comment> comments;
 }

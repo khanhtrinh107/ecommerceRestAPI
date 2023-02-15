@@ -29,4 +29,6 @@ public class User {
     private Set<Role> roles;
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
     private Set<SaleOrder> saleOrders;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Comment> comments;
 }

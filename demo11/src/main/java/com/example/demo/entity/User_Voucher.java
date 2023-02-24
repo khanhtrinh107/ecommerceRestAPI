@@ -5,25 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Entity
-@Table(name = "sale_order")
+@Table(name = "user_voucher")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SaleOrder {
+public class User_Voucher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sale_order_id")
-    private Integer saleOrderId;
-    private double amount;
+    @Column(name = "user_voucher_id")
+    private Integer id;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
-    @OneToMany(mappedBy = "saleOrder" , cascade = CascadeType.ALL)
-    private Set<OrderDetail> orderDetails;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "voucher_id")
     private Voucher voucher;

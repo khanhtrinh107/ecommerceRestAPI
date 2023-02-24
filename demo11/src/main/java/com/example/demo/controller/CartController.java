@@ -66,11 +66,11 @@ public class CartController {
     }
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/cart/pay")
-    public ResponseEntity<?> payment(HttpSession session , @RequestParam int id){
+    public ResponseEntity<?> payment(HttpSession session , @RequestParam(name = "id") int id , @RequestParam(name = "voucher" , required = false , defaultValue = "") String voucher){
         Map<Integer,Cart> cartMap = (Map<Integer, Cart>) session.getAttribute("cart");
         if(cartMap != null){
-            boolean check = saleOrderService.addOrder(cartMap , id);
-            if(check == true){
+            boolean check = saleOrderService.addOrder(cartMap , id , voucher);
+            if(check == true){ 
                 return new ResponseEntity<>("Pay Successful!", HttpStatus.OK);
             }
             else{

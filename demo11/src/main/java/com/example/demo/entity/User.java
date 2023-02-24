@@ -31,4 +31,6 @@ public class User {
     private Set<SaleOrder> saleOrders;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Comment> comments;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private Set<User_Voucher> user_vouchers;
 }

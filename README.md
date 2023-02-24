@@ -1,2 +1,1 @@
-# ecommerceRestAPI
-Spring Data JPA , Spring Security jwt đăng kí , đăng nhập , chứng thực và phân quyền , Thêm sửa xóa sản phẩm , Validation , paging , sorting , giỏ hàng , đặt hàng , thống kê theo danh thu 
+Spring Data JPA, MySql , Spring Security , Jwt , Sign Up , Login , Authentication and Authorization , CRUD User Product Comment Role Voucher , Validation , Exception handling , Paging , Sorting , Searching , Cart , Order , Payment , Statistics

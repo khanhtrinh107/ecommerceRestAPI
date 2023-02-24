@@ -11,5 +11,5 @@ public interface SaleOrderService {
     SaleOrder findById(int id);
     SaleOrder create();
 
-    boolean addOrder(Map<Integer, Cart> carts , int id);
+    boolean addOrder(Map<Integer, Cart> carts , int id , String code);
 }

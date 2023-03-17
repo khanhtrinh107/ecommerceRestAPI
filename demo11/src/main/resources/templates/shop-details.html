@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragment :: head">
+    <style>
+        body{background: #eee}.date{font-size: 11px}.comment-text{font-size: 12px}.fs-12{font-size: 12px}.shadow-none{box-shadow: none}.name{color: #007bff}.cursor:hover{color: blue}.cursor{cursor: pointer}.textarea{resize: none}
+    </style>
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Humberger Begin -->
+
+    <!-- Humberger End -->
+
+    <!-- Header Section Begin -->
+    <header th:replace="fragment :: header">
+
+    </header>
+    <!-- Header Section End -->
+
+    <!-- Hero Section Begin -->
+    <section th:replace="fragment :: header1">
+
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section th:replace="fragment :: header2 ">
+
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Product Details Section Begin -->
+    <section class="product-details spad">
+        <div class="container">
+            <div class="row" id = "product-detail">
+
+            </div>
+            <div class="bg-light p-2">
+                <div class="d-flex flex-row align-items-start"><img class="rounded-circle" src="https://img.myloview.com/posters/man-avatar-graphic-sign-anonymous-male-profile-sign-in-the-circle-isolated-on-white-background-vector-illustration-700-250607736.jpg" width="40"><textarea id = "commentArea" class="form-control ml-1 shadow-none textarea"></textarea></div>
+                <div class="mt-2 text-right"><button th:attr="onclick='addComment(\'' + ${productId} + '\', \'' + ${userId} + '\');'" class="btn btn-primary btn-sm shadow-none" type="button">Post comment</button><button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button">Cancel</button></div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Details Section End -->
+
+    <!-- Related Product Section Begin -->
+    <section class="related-product">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title related__product__title">
+                        <h2>Related Product</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id = "related-product">
+
+
+            </div>
+            <div class="product__pagination" style="    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 50px;" >
+
+                <div id = "pagination2" >
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Related Product Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer th:replace="fragment :: footer">
+
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery.nice-select.min.js}"></script>
+    <script th:src="@{/js/jquery-ui.min.js}"></script>
+    <script th:src="@{/js/jquery.slicknav.js}"></script>
+    <script th:src="@{/js/mixitup.min.js}"></script>
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/product.js}"></script>
+    <script th:src="@{/js/category.js}" ></script>
+    <script th:src="@{/js/comment.js}" ></script>
+    <script>getAllCategories()
+    </script>
+    <script th:src="@{/js/cart.js}" ></script>
+    <script> getProduct([[${id}]])
+    getCommentByProductId([[${id}]])
+    </script>
+    <script>getSameProduct([[${id}]])</script>
+</body>
+
+</html>

@@ -2,12 +2,16 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Product;
 import com.example.demo.entity.dto.ProductDto;
+import com.example.demo.entity.dto.ProductView;
 import com.example.demo.exception.ObjectExistedException;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.ProductService;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,15 +23,25 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
-    @GetMapping("/product")
-    public ResponseEntity<?> getProducts(@RequestParam(name = "page") int page , @RequestParam(name = "size") int size , @RequestParam(name = "domain") String domain , @RequestParam(name = "dir") String dir){
+        @GetMapping("/product")
+    public ResponseEntity<?> getProducts(@RequestParam(name = "page" , required = false , defaultValue = "1") int page , @RequestParam(name = "size") int size , @RequestParam(name = "domain") String domain , @RequestParam(name = "dir") String dir){
         List<Product> list = productService.findAll(size,page,domain,dir).getContent();
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
+
+    @GetMapping("/product/detail/{id}")
+    public ResponseEntity<?> getById(@PathVariable String id) throws UserNotFoundException {
+            int id2 = Integer.parseInt(id);
+            return new ResponseEntity<>(productService.findById(id2), HttpStatus.OK);
+    }
     @GetMapping("/product/search")
-    public ResponseEntity<?> searchProduct(@RequestParam(name = "page" , required = false , defaultValue = "1") int page , @RequestParam(name = "size" ,required = false , defaultValue = "5") int size,@RequestParam(name = "domain" , required = false , defaultValue = "productName") String domain , @RequestParam(name = "dir" ,required = false , defaultValue = "asc") String dir , @RequestParam(name = "keyword" ,required = false , defaultValue = "") String keyword){
+    public ResponseEntity<?> searchProduct(@RequestParam(name = "page" , required = false , defaultValue = "1") int page , @RequestParam(name = "size" ,required = false , defaultValue = "6") int size,@RequestParam(name = "domain" , required = false , defaultValue = "productId") String domain , @RequestParam(name = "dir" ,required = false , defaultValue = "asc") String dir , @RequestParam(name = "keyword" ,required = false , defaultValue = "") String keyword){
         List<Product> list = productService.searchByProductName(size,page,domain,dir,keyword).getContent();
-        return new ResponseEntity<>(list,HttpStatus.OK);
+        int pageCount = productService.searchByProductName(size,page,domain,dir,keyword).getTotalPages();
+        ProductView productView = new ProductView();
+        productView.setProductList(list);
+        productView.setPageCount(pageCount);
+        return new ResponseEntity<>(productView,HttpStatus.OK);
     }
     @PreAuthorize("hasRole('ADMIN') or hasRole('EDITOR')")
     @PostMapping("/product")
@@ -48,5 +62,30 @@ public class ProductController {
         }catch (Exception exception){
             return new ResponseEntity<>("Co loi xay ra" , HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/product/same-category/{id}")
+    public ResponseEntity<?> getSameCategory(@PathVariable int id , @RequestParam(name = "page" , required = false , defaultValue = "1") int page , @RequestParam(name = "size" , defaultValue = "4") int size) throws UserNotFoundException {
+            Product product = productService.findById(id);
+            ProductView productView = new ProductView();
+            productView.setProductList(productService.getSameCategory(product.getCategory().getCategoryId() , page , size).getContent());
+            productView.setPageCount(productService.getSameCategory(product.getCategory().getCategoryId() , page , size).getTotalPages());
+        return new ResponseEntity<>(productView, HttpStatus.OK);
+    }
+
+    @GetMapping("/product/lastestProduct")
+    public ResponseEntity<?> getLastestProduct(){
+        Pageable pageable1 = PageRequest.of(0,6);
+            return new ResponseEntity<>(productService.getLastestProduct(pageable1) , HttpStatus.OK);
+    }
+
+    @GetMapping("/produt/productSale")
+    public ResponseEntity<?> getProductSale(){
+            return new ResponseEntity<>(productService.getProductSale(),HttpStatus.OK);
+    }
+
+    @GetMapping("/product/getAll")
+    public ResponseEntity<?> getAll(){
+            return new ResponseEntity<>(productService.getAll(),HttpStatus.OK);
     }
 }

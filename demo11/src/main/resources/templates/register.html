@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Form Validation in JavaScript Example</title>
+
+  <!-- Demo CSS (No need to include it into your project) -->
+
+  <style>
+    :root{
+      --succes-color: #2ecc71;;
+      --error-color: #e74c3c;
+    }
+    .container{
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      width: 400px;
+      margin: 10px auto;
+    }
+
+    h2{
+      text-align: center;
+      margin: 0 0 20px;
+    }
+
+    .form{
+      padding: 30px 40px;
+    }
+
+    .form-control{
+      margin-bottom: 10px;
+      padding-bottom: 20px;
+      position: relative;
+    }
+
+    .form-control label{
+      color:#777;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-control input
+    {
+      border: 2px solid #f0f0f0;
+      border-radius: 4px;
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    .form-control input:focus{
+      outline: 0;
+      border-color: #777;
+
+    }
+
+    .form-control.success input {
+      border-color: var(--succes-color);
+    }
+
+    .form-control.error input {
+      border-color: var(--error-color);
+    }
+
+    .form-control small{
+      color: var(--error-color);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      visibility: hidden;
+    }
+
+    .form-control.error small{
+      visibility: visible;
+    }
+    .form button {
+      cursor: pointer;
+      background-color: #3498db;
+      border: 2px solid #3498db;
+      border-radius: 4px;
+      color: #fff;
+      display: block;
+      padding: 10px;
+      font-size: 16px;
+      margin-top:20px;
+      width:100%;
+    }
+    @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+    @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+    *{ margin: 0; padding: 0;}
+    body{
+      font-family: 'Roboto', sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      font-smoothing: antialiased;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 15px;
+      background: #eee;
+    }
+    .intro{
+      background: #fff;
+      padding: 60px 30px;
+      color: #333;
+      margin-bottom: 15px;
+      line-height: 1.5;
+      text-align: center;
+    }
+    .intro h1 {
+      font-size: 18pt;
+      padding-bottom: 15px;
+
+    }
+    .intro p{
+      font-size: 14px;
+    }
+
+    .action{
+      text-align: center;
+      display: block;
+      margin-top: 20px;
+    }
+
+    a.btn {
+      text-decoration: none;
+      color: #666;
+      border: 2px solid #666;
+      padding: 10px 15px;
+      display: inline-block;
+      margin-left: 5px;
+    }
+    a.btn:hover{
+      background: #666;
+      color: #fff;
+      transition: .3s;
+      -webkit-transition: .3s;
+    }
+    .btn:before{
+      font-family: FontAwesome;
+      font-weight: normal;
+      margin-right: 10px;
+    }
+    .github:before{content: "\f09b"}
+    .down:before{content: "\f019"}
+    .back:before{content:"\f112"}
+    .credit{
+      background: #fff;
+      padding: 12px;
+      font-size: 9pt;
+      text-align: center;
+      color: #333;
+      margin-top: 40px;
+
+    }
+    .credit span:before{
+      font-family: FontAwesome;
+      color: #e41b17;
+      content: "\f004";
+
+
+    }
+    .credit a{
+      color: #333;
+      text-decoration: none;
+    }
+    .credit a:hover{
+      color: #1DBF73;
+    }
+    .credit a:hover:after{
+      font-family: FontAwesome;
+      content: "\f08e";
+      font-size: 9pt;
+      position: absolute;
+      margin: 3px;
+    }
+    main{
+      padding:: 20px;
+
+    }
+
+    article li{
+      color: #444;
+      font-size: 15px;
+      margin-left: 33px;
+      line-height: 1.5;
+      padding: 5px;
+    }
+    article h1,
+    article h2,
+    article h3,
+    article h4,
+    article p{
+      padding: 14px;
+      color: #333;
+    }
+    article p{
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    @media only screen and (min-width: 720px){
+      main{
+        max-width: 720px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 24px;
+      }
+
+
+    }
+
+    .set-overlayer,
+    .set-glass,
+    .set-sticky {
+      cursor: pointer;
+      height: 45px;
+      line-height: 45px;
+      padding: 0 15px;
+      color: #333;
+      font-size: 16px;
+    }
+    .set-overlayer:after,
+    .set-glass:after,
+    .to-active:after,
+    .set-sticky:after {
+      font-family: FontAwesome;
+      font-size: 18pt;
+      position: relative;
+      float: right;
+    }
+    .set-overlayer:after,
+    .set-glass:after,
+    .set-sticky:after {
+      content: "\f204";
+      transition: .6s;
+    }
+
+    .to-active:after {
+      content: "\f205";
+      color: #008080;
+      transition: .6s;
+    }
+    .set-overlayer,
+    .set-glass,
+    .set-sticky,
+    .source,
+    .theme-tray {
+      margin: 10px;
+      background: #f2f2f2;
+      border-radius: 5px;
+      border: 2px solid #f1f1f1;
+      box-sizing: border-box;
+    }
+    /* Syntax Highlighter*/
+
+    pre.prettyprint {
+      padding: 15px !important;
+      margin: 10px;
+      border: 0 !important;
+      background: #f2f2f2;
+      overflow: auto;
+    }
+
+    .source {
+      white-space: pre;
+      overflow: auto;
+      max-height: 400px;
+    }
+    code{
+      border:1px solid #ddd;
+      padding: 2px;
+      border-radius: 2px;
+    }
+
+
+  </style>
+</head>
+<body>
+
+
+<main>
+  <div class="container">
+    <div id="form" class="form">
+      <h2>Register With Us</h2>
+      <p id = "error" ></p>
+      <div class="form-control">
+        <label >Username</label>
+        <input type="text" id="username1" placeholder="Enter Username">
+        <p id = "username" ></p>
+      </div>
+      <div class="form-control">
+        <label >Email</label>
+        <input type="email" id="email1" placeholder="Enter email">
+        <p id = "email" ></p>
+      </div>
+      <div class="form-control">
+        <label >Password</label>
+        <input type="password" id="password1" placeholder="Enter password">
+        <p id = "password" ></p>
+      </div>
+
+      <div class="form-control">
+        <label >First Name</label>
+        <input type="text" id="firstName1" placeholder="Enter first name">
+        <p id = "firstName" ></p>
+      </div>
+      <div class="form-control">
+        <label >Last Name</label>
+        <input type="text" id="lastName1" placeholder="Enter last name">
+        <p id = "lastName" ></p>
+      </div>
+      <button onclick="register()" id = "submitBtn">Submit</button>
+    </div>
+  </div>
+</main>
+
+<script>
+  function register(){
+    let username = document.getElementById("username1").value
+    let password = document.getElementById("password1").value
+    let email = document.getElementById("email1").value
+    let firstName = document.getElementById("firstName1").value
+    let lastName = document.getElementById("lastName1").value
+    let role = []
+    console.log(username)
+    console.log(password)
+    console.log(email)
+    console.log(firstName)
+    console.log(lastName)
+    fetch('http://localhost:8080/home',{
+      method : "post",
+      headers : {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify({
+        "username" : username,
+        "password" : password,
+        "email" : email,
+        "firstName" : firstName ,
+        "lastName" : lastName,
+        "roles" : role
+      })
+    })
+            .then((response) => {
+              return response.json()
+            })
+            .then((data) => {
+                if(data.userId !== undefined){
+                  window.location.href = "/view/home";
+                }
+                else if (data.message !== undefined){
+                  document.getElementById("error").innerText = data.message
+                }
+                else{
+                  for(let i in data){
+                    document.getElementById(i).innerText = data[i]
+                  }
+                }
+            })
+  }
+</script>
+</body>
+</html>

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/comment")
-@PreAuthorize("isAuthenticated()")
+//@PreAuthorize("isAuthenticated()")
 public class CommentController {
     @Autowired
     private CommentService commentService;
@@ -21,6 +21,7 @@ public class CommentController {
         return new ResponseEntity<>(commentService.findByProduct(productId), HttpStatus.OK);
     }
     @PostMapping
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> addComment(@RequestBody @Valid CommentDto commentDto) throws UserNotFoundException {
         return new ResponseEntity<>(commentService.addComment(commentDto),HttpStatus.CREATED);
     }

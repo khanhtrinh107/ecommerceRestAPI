@@ -47,15 +47,19 @@ public class SaleOrderServiceImpl implements SaleOrderService {
     @Override
     public boolean addOrder(Map<Integer, Cart> carts, int id , String code ) {
        try {
+           System.out.println("OK");
            SaleOrder saleOrder = new SaleOrder();
            Voucher voucher = userRepository.findByUserIdAndCode(code,id);
+           System.out.println("test");
            float giam = 1;
            if(!ObjectUtils.isEmpty(voucher)){
                giam = 1-(float)voucher.getPersen()/100;
            }
-           saleOrder.setAmount(utils.aggregate(carts).get("amount")*giam);
+           saleOrder.setAmount(utils.aggregate(carts).get("amount1")*giam);
+           System.out.println("OK0");
            saleOrder.setUser(userRepository.findById(id).orElseThrow());
            saleOrderRepository.save(saleOrder);
+           System.out.println("OK1");
            for(Cart cart : carts.values()){
                OrderDetail orderDetail = new OrderDetail();
                orderDetail.setSaleOrder(saleOrder);
@@ -64,10 +68,13 @@ public class SaleOrderServiceImpl implements SaleOrderService {
                orderDetail.setQuantity(cart.getQuantity());
                orderDetailRepository.save(orderDetail);
            }
-           return  true;
+           System.out.println("OK2");
+           return true;
        }catch (Exception ex){
+           System.out.println(ex.getMessage());
            ex.getStackTrace();
        }
+        System.out.println("NOT OK");
         return false;
     }
 }

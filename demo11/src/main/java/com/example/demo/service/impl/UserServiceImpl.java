@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(SignUpRequest sign) throws ObjectExistedException {
-        if(!ObjectUtils.isEmpty(userRepository.findByEmail(sign.getUsername()))){
+        if(!ObjectUtils.isEmpty(userRepository.findByUsername(sign.getUsername()))){
             throw new ObjectExistedException("username existed!");
         }
         if(!ObjectUtils.isEmpty(userRepository.findByEmail(sign.getEmail()))){
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(SignUpRequest sign, int id) throws UserNotFoundException, ObjectExistedException {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("No user have id + " + id));
-        if(!ObjectUtils.isEmpty(userRepository.findByEmail(sign.getUsername()))){
+        if(!ObjectUtils.isEmpty(userRepository.findByUsername(sign.getUsername()))){
             throw new ObjectExistedException("username existed!");
         }
         if(!ObjectUtils.isEmpty(userRepository.findByEmail(sign.getEmail()))){

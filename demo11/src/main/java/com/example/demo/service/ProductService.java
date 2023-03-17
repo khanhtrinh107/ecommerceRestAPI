@@ -18,4 +18,14 @@ public interface ProductService {
     void delete(int id) throws UserNotFoundException;
 
     List<Object[]> statistics();
+
+    Page<Product> getSameCategory(int productId , int page,  int size);
+
+    List<Product> getLastestProduct(Pageable pageable);
+
+    Page<Product> getProductByCategoryId(int id , int page , int size);
+
+    List<Product> getProductSale();
+
+    List<Product> getAll();
 }

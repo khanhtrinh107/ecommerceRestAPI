@@ -18,4 +18,16 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
 
     @Query("select p.productName , sum(o.quantity) , sum(o.initPrice*o.quantity) from Product p inner join OrderDetail o on p.productId = o.product.productId group by p.productId order by sum(o.initPrice*o.quantity) desc ")
     List<Object[]> statitics();
+
+    @Query("select p from Product p where p.category.categoryId = ?1")
+    Page<Product> getSameCategory(int productId , Pageable pageable);
+
+    @Query("select p from Product p order by p.productId  desc  ")
+    List<Product> getLastestProduct(Pageable pageable);
+
+    @Query("select p from Product p where p.category.categoryId = ?1")
+    Page<Product> getProductByCategoryId(int id , Pageable pageable);
+
+    @Query("select p from Product p order by p.productId")
+    List<Product> getProductSale(Pageable pageable);
 }

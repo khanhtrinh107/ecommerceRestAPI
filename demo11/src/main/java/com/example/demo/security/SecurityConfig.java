@@ -1,8 +1,9 @@
 package com.example.demo.security;
 
-import com.example.demo.jwt.JwtAuthenticationFilter;
+//import com.example.demo.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -20,10 +21,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-    @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter(){
-        return new JwtAuthenticationFilter();
-    }
+//    @Bean
+//    public JwtAuthenticationFilter jwtAuthenticationFilter(){
+//        return new JwtAuthenticationFilter();
+//    }
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -46,15 +47,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.httpBasic();
+        http.formLogin().loginPage("/login")
+                .failureUrl("/login?error=ok")
+                        .defaultSuccessUrl("/view/shop")
+                                .permitAll();
+
+        http.logout().logoutSuccessUrl("/login?logout=ok").permitAll();
         http.authenticationProvider(authenticationProvider());
-        http.authorizeHttpRequests().requestMatchers("/admin").hasRole("ADMIN")
-                .requestMatchers("/user").hasRole("USER")
-                .requestMatchers("/home").permitAll()
-                .requestMatchers("/login").permitAll()
-                .requestMatchers("/editor").hasRole("EDITOR")
-                .anyRequest().authenticated();
-        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.authorizeHttpRequests().anyRequest().permitAll();
+        //http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

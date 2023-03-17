@@ -21,7 +21,7 @@ public class utils {
             cnt += cart.getQuantity();
         }
        res.put("count" , cnt);
-        res.put("amount" , sum);
+        res.put("amount1" , sum);
         return res;
     }
 }

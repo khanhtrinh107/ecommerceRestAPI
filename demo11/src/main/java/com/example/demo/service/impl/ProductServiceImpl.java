@@ -36,6 +36,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll(pageable);
     }
 
+
     @Override
     public Page<Product> searchByProductName(int size, int page, String domain, String dir, String keyword) {
         Sort sort = Sort.by(domain);
@@ -90,5 +91,33 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Object[]> statistics() {
         return productRepository.statitics();
+    }
+
+    @Override
+    public Page<Product> getSameCategory(int productId , int page , int size ) {
+        Pageable pageable = PageRequest.of(page-1,size);
+        return productRepository.getSameCategory(productId , pageable);
+    }
+
+    @Override
+    public List<Product> getLastestProduct(Pageable pageable) {
+        return productRepository.getLastestProduct(pageable);
+    }
+
+    @Override
+    public Page<Product> getProductByCategoryId(int id , int page , int size) {
+        Pageable pageable = PageRequest.of(page-1,size);
+        return productRepository.getProductByCategoryId(id , pageable);
+    }
+
+    @Override
+    public List<Product> getProductSale() {
+        Pageable pageable = PageRequest.of(0,4);
+        return productRepository.getProductSale(pageable);
+    }
+
+    @Override
+    public List<Product> getAll() {
+        return productRepository.findAll();
     }
 }

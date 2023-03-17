@@ -57,4 +57,9 @@ public class VoucherServiceImpl implements VoucherService {
     public void deleteVoucher(int id) {
         voucherRepository.deleteById(id);
     }
+
+    @Override
+    public List<Voucher> findByUserId(int userId) {
+        return voucherRepository.findByUserId(userId);
+    }
 }

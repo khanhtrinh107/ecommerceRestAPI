@@ -15,4 +15,6 @@ public interface VoucherService {
     public Voucher createVoucher(VoucherDto voucherDto) throws ObjectExistedException;
 
     public void deleteVoucher(int id);
+
+    List<Voucher> findByUserId(int userId);
 }

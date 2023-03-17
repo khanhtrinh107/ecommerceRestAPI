@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragment :: head">
+
+</head>
+
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+  <div class="loader"></div>
+</div>
+
+
+<!-- Humberger End -->
+
+<!-- Header Section Begin -->
+<header th:replace="fragment :: header">
+
+</header>
+<!-- Header Section End -->
+<section th:replace="fragment :: header1" ></section>
+<!-- Hero Section Begin -->
+<section th:replace="fragment :: header2" ></section>
+<!-- Breadcrumb Section End -->
+
+<!-- Product Section Begin -->
+<section class="product spad">
+  <div class="container">
+    <div class="product__discount">
+      <div class="section-title product__discount__title" style="display: flex;
+    justify-content: center;">
+        <h2 style="text-align: center">Sale Off</h2>
+      </div>
+      <div class="row">
+        <div class="product__discount__slider owl-carousel" id = "productSale" style="display: flex">
+
+
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-5">
+        <div class="sidebar">
+          <div class="sidebar__item">
+            <h4>Department</h4>
+            <ul id="categories">
+
+              <li><a href="#">Fresh Meat</a></li>
+            </ul>
+          </div>
+          <div class="sidebar__item shopee-filter-group shopee-price-range-filter shopee-price-range-filter--vn">
+            <div class="shopee-filter-group__header shopee-price-range-filter__header">Khoảng Giá</div>
+            <div class="shopee-filter-group__body shopee-price-range-filter__edit">
+              <div class="shopee-price-range-filter__inputs"><input oninput="searchByPrice()" id = "minPrice" type="text" maxlength="13"
+                                                                    class="shopee-price-range-filter__input"
+                                                                    placeholder="₫ TỪ" value="">
+                <div class="shopee-price-range-filter__range-line"></div>
+                <input oninput="searchByPrice()" type="text" maxlength="13"  class="shopee-price-range-filter__input" id = "maxPrice"
+                       placeholder="₫ ĐẾN" value=""></div>
+            </div>
+            <button id = "priceBtn" onclick="searchByPrice()"  class="shopee-button-solid shopee-button-solid--primary hdzZKE"
+                    style="background-color: rgb(238, 77, 45);">Áp dụng
+            </button>
+          </div>
+
+
+          <div class="sidebar__item">
+            <div class="latest-product__text">
+              <h4>Latest Products</h4>
+              <div class="latest-product__slider owl-carousel" id="lastestProduct">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9 col-md-7">
+        <span th:if="${keyword}" > Result for keyword: [[${keyword}]] </span>
+        <div class="filter__item">
+          <div class="row">
+            <div class="col-lg-4 col-md-5">
+              <div class="filter__sort">
+                <span>Sort By</span>
+                <select>
+                  <option value="0">Default</option>
+                  <option value="0">Default</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+              <div class="filter__found">
+                <h6><span>16</span> Products found</h6>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-3">
+              <div class="filter__option">
+                <span class="icon_grid-2x2"></span>
+                <span class="icon_ul"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" id="product" >
+
+        </div>
+        <div class="row" id = "product2" >
+          <div class="col-lg-4 col-md-6 col-sm-6"  th:each="product : ${list}">
+            <div class="product__item">
+              <div class="product__item__pic set-bg" data-setbg="${product.image}">
+                <img th:src="${product.image}">
+                <ul class="product__item__pic__hover">
+                  <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                  <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                  <li>
+                    <a href="javascript:void(0);" th:attr="onclick='addToCart(\'' + ${product.productId} + '\', \'' + ${product.productName} + '\', \'' + ${product.image} + '\', \'' + ${product.price} + '\', 1);'">
+                      <i class="fa fa-shopping-cart"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="product__item__text">
+                <h6><a th:href="@{/view/deltail/{productId}(productId=${product.productId})}">[[${product.productName}]]</a></h6>
+                <h5>$[[${product.price}]]</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product__pagination" style="    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 50px;" >
+
+          <div id = "pagination" >
+
+          </div>
+
+          <div id = "pagination7" >
+              <span th:each="i : ${#numbers.sequence(1,pageCount)}" >
+                <a th:text="${i}" th:href="@{'/view/search?keyword='+${keyword} + '&page=' + ${i} }" ></a>
+              </span>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Product Section End -->
+
+<!-- Footer Section Begin -->
+<footer th:replace="fragment :: footer">
+
+</footer>
+<!-- Footer Section End -->
+
+<!-- Js Plugins -->
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.nice-select.min.js}"></script>
+<script th:src="@{/js/jquery-ui.min.js}"></script>
+<script th:src="@{/js/jquery.slicknav.js}"></script>
+<script th:src="@{/js/mixitup.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/product.js}"></script>
+<script th:src="@{/js/category.js}"></script>
+<script th:src="@{/js/cart.js}" ></script>
+<script>getLastestProduct()</script>
+<script>getAllCategories()
+</script>
+<script>getProductSale()
+    search()
+</script>
+
+</body>
+
+</html>

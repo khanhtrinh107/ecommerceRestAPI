@@ -13,10 +13,9 @@ import org.hibernate.validator.constraints.Length;
 public class CategoryDto {
     @NotNull(message = "category name should not be null!")
     @NotBlank(message = "category name should not be blank!")
-    @Length(min = 5, max = 100)
+    @Length(min = 1, max = 100)
     private String categoryName;
     @NotBlank(message = "description should not be blank!")
     @NotNull(message = "description should not be null!")
-    @Length(min = 5 , max = 1000)
     private String description;
 }

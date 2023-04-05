@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.cloudinary.CloudinaryService;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.dto.ProductDto;
 import com.example.demo.exception.ObjectExistedException;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -23,6 +25,8 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private CloudinaryService cloudinaryService;
 
 
     @Override
@@ -55,28 +59,30 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product create(ProductDto productDto) throws ObjectExistedException {
+    public Product create(ProductDto productDto) throws ObjectExistedException, IOException {
         if(!ObjectUtils.isEmpty(productRepository.findByProductName(productDto.getProductName()))){
             throw new ObjectExistedException("Product existed!");
         }
         Product product = new Product();
         product.setProductName(productDto.getProductName());
         product.setPrice(productDto.getPrice());
-        product.setImage(productDto.getImage());
+        product.setImage(cloudinaryService.uploadImage(productDto.getImage()));
         product.setDescription(productDto.getDescription());
         product.setCategory(categoryRepository.findByCategoryName(productDto.getCategory()));
         return productRepository.save(product);
     }
 
     @Override
-    public Product update(ProductDto productDto, int id) throws ObjectExistedException, UserNotFoundException {
+    public Product update(ProductDto productDto, int id) throws ObjectExistedException, UserNotFoundException, IOException {
         Product product = productRepository.findById(id).orElseThrow(() -> new UserNotFoundException("No product have id " + id));
         if(!ObjectUtils.isEmpty(productRepository.findByProductName(productDto.getProductName()))){
             throw new ObjectExistedException("Product existed!");
         }
         product.setProductName(productDto.getProductName());
         product.setPrice(productDto.getPrice());
-        product.setImage(productDto.getImage());
+        if(!ObjectUtils.isEmpty(productDto.getImage())){
+            product.setImage(cloudinaryService.uploadImage(productDto.getImage()));
+        }
         product.setDescription(productDto.getDescription());
         product.setCategory(categoryRepository.findByCategoryName(productDto.getCategory()));
         return productRepository.save(product);

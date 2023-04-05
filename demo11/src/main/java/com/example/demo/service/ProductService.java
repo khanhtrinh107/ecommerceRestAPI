@@ -7,14 +7,15 @@ import com.example.demo.exception.UserNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ProductService {
     Page<Product> findAll(int size , int page , String domain , String dir);
     Page<Product> searchByProductName(int size , int page , String domain , String dir , String keyword);
     Product findById(int id) throws UserNotFoundException;
-    Product create(ProductDto productDto) throws ObjectExistedException;
-    Product update(ProductDto productDto , int id) throws ObjectExistedException, UserNotFoundException;
+    Product create(ProductDto productDto) throws ObjectExistedException, IOException;
+    Product update(ProductDto productDto , int id) throws ObjectExistedException, UserNotFoundException, IOException;
     void delete(int id) throws UserNotFoundException;
 
     List<Object[]> statistics();

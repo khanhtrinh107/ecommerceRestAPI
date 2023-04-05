@@ -25,7 +25,6 @@ public class Product {
     private String description;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
-    @JsonIgnore
     private Category category;
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @JsonIgnore

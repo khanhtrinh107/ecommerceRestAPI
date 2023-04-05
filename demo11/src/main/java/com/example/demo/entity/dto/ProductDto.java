@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
 @Data
@@ -22,9 +23,7 @@ public class ProductDto {
     private String productName;
     @Min(0)
     private String price;
-    @NotBlank(message = "image should not be blank!")
-    @NotNull(message = "image should not be null!")
-    private String image;
+    private MultipartFile image;
     @NotNull(message = "description should not be null!")
     @NotBlank(message = "description should not be blank!")
     @Length(min = 5 , max = 100)

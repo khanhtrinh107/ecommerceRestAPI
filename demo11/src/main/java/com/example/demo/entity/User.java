@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class User {
     @Column(name = "user_id")
     private Integer userId;
     private String username;
+    @JsonIgnore
     private String password;
     private String email;
     @Column(name = "first_name")

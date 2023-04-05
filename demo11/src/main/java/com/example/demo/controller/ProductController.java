@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Product;
+import com.example.demo.entity.dto.CartMessage;
 import com.example.demo.entity.dto.ProductDto;
 import com.example.demo.entity.dto.ProductView;
 import com.example.demo.exception.ObjectExistedException;
@@ -16,7 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -43,24 +46,45 @@ public class ProductController {
         productView.setPageCount(pageCount);
         return new ResponseEntity<>(productView,HttpStatus.OK);
     }
-    @PreAuthorize("hasRole('ADMIN') or hasRole('EDITOR')")
+   // @PreAuthorize("hasRole('ADMIN') or hasRole('EDITOR')")
     @PostMapping("/product")
-    public ResponseEntity<?> addProduct(@RequestBody @Valid ProductDto productDto) throws ObjectExistedException {
-        return new ResponseEntity<>(productService.create(productDto) , HttpStatus.CREATED);
+    public ResponseEntity<?> addProduct(@RequestParam(name = "productName") String productName  , @RequestParam(name = "image")MultipartFile file, @RequestParam(name = "price") String price , @RequestParam(name = "category") String category , @RequestParam(name = "description") String description) throws ObjectExistedException, IOException {
+            ProductDto productDto = new ProductDto();
+            productDto.setProductName(productName);
+            productDto.setCategory(category);
+            productDto.setDescription(description);
+            productDto.setImage(file);
+            productDto.setPrice(price);
+            return new ResponseEntity<>(productService.create(productDto) , HttpStatus.CREATED);
     }
-    @PreAuthorize("hasRole('ADMIN') or hasRole('EDITOR')")
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('EDITOR')")
     @PutMapping("/product/{id}")
-    public ResponseEntity<?> updateProduct(@RequestBody @Valid ProductDto productDto , @PathVariable int id) throws UserNotFoundException, ObjectExistedException {
+    public ResponseEntity<?> updateProduct(@RequestParam(name = "productName") String productName  , @RequestParam(name = "image" ,required = false)MultipartFile file, @RequestParam(name = "price") String price , @RequestParam(name = "category") String category , @RequestParam(name = "description") String description , @PathVariable int id) throws UserNotFoundException, ObjectExistedException, IOException {
+        ProductDto productDto = new ProductDto();
+        productDto.setPrice(price);
+        productDto.setProductName(productName);
+        productDto.setCategory(category);
+        productDto.setImage(file);
+        productDto.setDescription(description);
         return  new ResponseEntity<>(productService.update(productDto,id) , HttpStatus.OK);
     }
-    @PreAuthorize("hasRole('ADMIN') or hasRole('EDITOR')")
+
+    @GetMapping("/product/{id}")
+    public ResponseEntity<?> getProductById(@PathVariable int id) throws UserNotFoundException {
+        try {
+            return new ResponseEntity<>(productService.findById(id) , HttpStatus.OK);
+        } catch (UserNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+//    @PreAuthorize("hasRole('ADMIN') or hasRole('EDITOR')")
     @DeleteMapping("/product/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable int id ){
         try{
             productService.delete(id);
-            return new ResponseEntity<>("Da Xoa Thanh Cong " , HttpStatus.OK);
+            return new ResponseEntity<>(new CartMessage("Da Xoa Thanh Cong " ), HttpStatus.OK);
         }catch (Exception exception){
-            return new ResponseEntity<>("Co loi xay ra" , HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new CartMessage("Co loi xay ra") , HttpStatus.BAD_REQUEST);
         }
     }
 

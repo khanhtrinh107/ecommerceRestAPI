@@ -5,7 +5,7 @@ function getAllCategories(){
         })
         .then((data) => {
             let html ='';
-            for(let category of data){
+            for(let category of data.categories){
                 html += `<li><a href="javascript:void(0);" onclick="getProductByCategory(${category.categoryId})">${category.categoryName}</a></li>`
             }
             document.getElementById("category").innerHTML = html

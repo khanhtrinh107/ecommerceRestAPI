@@ -184,6 +184,7 @@ function getCategoryById(id){
 let currentProduct;
 
 function getProductById(id){
+    document.getElementById('editError').innerText = '';
     fetch('http://localhost:8080/product/' + id)
         .then((response) => {
             return response.json();

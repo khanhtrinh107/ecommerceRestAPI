@@ -17,8 +17,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDto {
-    @NotNull(message = "product name should not be null!")
-    @NotBlank(message = "product name should not be blank!")
     @Length(min = 5 , max = 100)
     private String productName;
     @Min(0)

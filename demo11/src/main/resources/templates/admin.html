@@ -897,11 +897,22 @@
         const cate = select.options[select.selectedIndex].value;
         const image = document.getElementById("editUploadImg").files[0];
         console.log(image)
-        formData.append('productName',productName);
-        formData.append('price',price);
-        formData.append('category',cate);
-        formData.append('description',description);
-        formData.append('image' , image);
+        if(currentProduct.productName !== productName){
+            formData.append('productName',productName);
+        }
+        if(currentProduct.price !== price){
+            formData.append('price',price);
+        }
+        if(currentProduct.category.categoryName !== cate){
+            formData.append('category',cate);
+        }
+        if(currentProduct.description !== description){
+            formData.append('description',description);
+        }
+        if(image !== undefined){
+            formData.append('image' , image);
+        }
+        console.log(formData)
         fetch('http://localhost:8080/product/' + currentProductId , {
             method : "PUT",
             body : formData

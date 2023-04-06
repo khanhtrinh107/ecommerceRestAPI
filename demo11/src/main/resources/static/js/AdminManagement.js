@@ -181,6 +181,7 @@ function getCategoryById(id){
         })
 }
 
+let currentProduct;
 
 function getProductById(id){
     fetch('http://localhost:8080/product/' + id)
@@ -188,6 +189,8 @@ function getProductById(id){
             return response.json();
         })
         .then((data) => {
+            currentProduct = data
+            console.log(currentProduct)
             document.getElementById('editProductName').value = data.productName
             document.getElementById('editPrice').value = data.price
             document.getElementById('editProductDescription').value = data.description

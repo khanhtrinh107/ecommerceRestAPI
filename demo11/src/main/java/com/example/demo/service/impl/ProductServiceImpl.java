@@ -75,16 +75,17 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product update(ProductDto productDto, int id) throws ObjectExistedException, UserNotFoundException, IOException {
         Product product = productRepository.findById(id).orElseThrow(() -> new UserNotFoundException("No product have id " + id));
+        System.out.println(productDto.getProductName());
         if(!ObjectUtils.isEmpty(productRepository.findByProductName(productDto.getProductName()))){
             throw new ObjectExistedException("Product existed!");
         }
-        product.setProductName(productDto.getProductName());
-        product.setPrice(productDto.getPrice());
+        if(productDto.getProductName() != null)  product.setProductName(productDto.getProductName());
+        if(productDto.getPrice() != null) product.setPrice(productDto.getPrice());
         if(!ObjectUtils.isEmpty(productDto.getImage())){
             product.setImage(cloudinaryService.uploadImage(productDto.getImage()));
         }
-        product.setDescription(productDto.getDescription());
-        product.setCategory(categoryRepository.findByCategoryName(productDto.getCategory()));
+        if(productDto.getDescription() != null) product.setDescription(productDto.getDescription());
+        if(productDto.getCategory() != null) product.setCategory(categoryRepository.findByCategoryName(productDto.getCategory()));
         return productRepository.save(product);
     }
 

@@ -59,13 +59,14 @@ public class ProductController {
     }
 //    @PreAuthorize("hasRole('ADMIN') or hasRole('EDITOR')")
     @PutMapping("/product/{id}")
-    public ResponseEntity<?> updateProduct(@RequestParam(name = "productName") String productName  , @RequestParam(name = "image" ,required = false)MultipartFile file, @RequestParam(name = "price") String price , @RequestParam(name = "category") String category , @RequestParam(name = "description") String description , @PathVariable int id) throws UserNotFoundException, ObjectExistedException, IOException {
+    public ResponseEntity<?> updateProduct(@RequestParam(name = "productName" , required = false) String productName  , @RequestParam(name = "image" ,required = false)MultipartFile file, @RequestParam(name = "price" ,required = false) String price , @RequestParam(name = "category" , required = false) String category , @RequestParam(name = "description" , required = false) String description , @PathVariable int id) throws UserNotFoundException, ObjectExistedException, IOException {
         ProductDto productDto = new ProductDto();
-        productDto.setPrice(price);
-        productDto.setProductName(productName);
-        productDto.setCategory(category);
-        productDto.setImage(file);
-        productDto.setDescription(description);
+        if(price != null) productDto.setPrice(price);
+        if(productName != null)  productDto.setProductName(productName);
+        if(category != null)  productDto.setCategory(category);
+        if(file != null)  productDto.setImage(file);
+        if(description != null)  productDto.setDescription(description);
+        System.out.println(productDto);
         return  new ResponseEntity<>(productService.update(productDto,id) , HttpStatus.OK);
     }
 

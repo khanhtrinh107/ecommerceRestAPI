@@ -201,10 +201,9 @@
                                         </a>
                                     </li>
 
-                                    <li class="dropdown nav-item">
-                                        <a class="nav-link" href="#" data-toggle="dropdown">
-                                            <img src="img/user.jpg" style="width:40px; border-radius:50%;"/>
-                                            <span class="xp-user-live"></span>
+                                    <li class="dropdown nav-item" style="margin-right: 80px;width: 50px;display: flex;justify-content: center;text-align: center;align-items: center;">
+                                        <a class="nav-link" style="margin-left: 100px;margin-top: 7px;" href="#" data-toggle="dropdown">
+                                            <span >[[${username}]]</span>
                                         </a>
                                         <ul class="dropdown-menu small-menu">
                                             <li><a href="#">
@@ -215,7 +214,7 @@
                                                 <span class="material-icons">settings</span>
                                                 Settings
                                             </a></li>
-                                            <li><a href="#">
+                                            <li><a th:href="@{/logout}" >
                                                 <span class="material-icons">logout</span>
                                                 Logout
                                             </a></li>

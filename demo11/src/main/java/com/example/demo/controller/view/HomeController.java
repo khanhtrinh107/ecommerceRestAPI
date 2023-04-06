@@ -25,6 +25,11 @@ public class HomeController {
     public String view(){
         return "index";
     }
+
+    @GetMapping("/view/forbidden")
+    public String forbidden(){
+        return "403";
+    }
     @GetMapping("view/deltail/{id}")
     public String detail(@PathVariable int id , Model model){
         String res = (SecurityContextHolder.getContext().getAuthentication().getName());

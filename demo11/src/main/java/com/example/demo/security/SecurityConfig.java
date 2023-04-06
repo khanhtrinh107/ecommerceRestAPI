@@ -53,6 +53,7 @@ public class SecurityConfig {
                                 .permitAll();
 
         http.logout().logoutSuccessUrl("/login?logout=ok").permitAll();
+        http.exceptionHandling().accessDeniedPage("/view/forbidden");
         http.authenticationProvider(authenticationProvider());
         http.authorizeHttpRequests().anyRequest().permitAll();
         //http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

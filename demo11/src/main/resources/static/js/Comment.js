@@ -1,5 +1,5 @@
 function getCommentByProductId(id){
-    fetch('http://localhost:8080/comment?productId=' + id)
+    fetch('http://localhost:8181/comment?productId=' + id)
         .then((response) => {
             return response.json()
         })
@@ -37,7 +37,7 @@ function addComment( productId , userId){
     }
     let content = document.getElementById("commentArea").value
     if(content !== ''){
-        fetch('http://localhost:8080/comment' , {
+        fetch('http://localhost:8181/comment' , {
             method : "post",
             headers : {
                 "Content-Type" : "application/json"

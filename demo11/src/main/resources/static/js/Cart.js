@@ -1,6 +1,6 @@
 
 function loadCart(){
-    fetch('http://localhost:8080/cart')
+    fetch('http://localhost:8181/cart')
         .then((response) => {
             return response.json();
         })
@@ -37,7 +37,7 @@ function loadCart(){
                     console.log(cart)
                 }
                 document.getElementById("cartList").innerHTML = html;
-                fetch('http://localhost:8080/cart/display')
+                fetch('http://localhost:8181/cart/display')
                     .then((response) => {
                         return response.json()
                     })
@@ -52,7 +52,7 @@ function loadCart(){
 
 
 function addToCart(productId,  productName, image,  price,  quantity){
-    fetch('http://localhost:8080/cart', {
+    fetch('http://localhost:8181/cart', {
         method : "post",
         headers: {
             "Content-Type": "application/json",
@@ -77,7 +77,7 @@ function addToCart(productId,  productName, image,  price,  quantity){
 }
 
 function displayCart(){
-    fetch('http://localhost:8080/cart/display')
+    fetch('http://localhost:8181/cart/display')
         .then((response) => {
             return response.json()
         })
@@ -91,7 +91,7 @@ displayCart();
 
 function updateCart(productId , productName , image , price){
     let count = document.getElementById("quantity" + productId).value;
-    fetch('http://localhost:8080/cart',{
+    fetch('http://localhost:8181/cart',{
         method : "put" ,
         headers : {
             "Content-Type" : "application/json"
@@ -110,7 +110,7 @@ function updateCart(productId , productName , image , price){
         .then((data) => {
             let tmp = count * price
             document.getElementById("totalPrice" + productId).innerText = '$' +  tmp.toString()
-            fetch('http://localhost:8080/cart/display')
+            fetch('http://localhost:8181/cart/display')
                 .then((response) => {
                     return response.json()
                 })
@@ -126,7 +126,7 @@ function updateCart(productId , productName , image , price){
 }
 
 function deleteCart(id){
-    fetch('http://localhost:8080/cart/' + id , {
+    fetch('http://localhost:8181/cart/' + id , {
         method : "delete"
     } )
         .then((response) => {
@@ -134,7 +134,7 @@ function deleteCart(id){
         })
         .then((data) => {
             document.getElementById("cart" + id).style.display = "none";
-            fetch('http://localhost:8080/cart/display')
+            fetch('http://localhost:8181/cart/display')
                 .then((response) => {
                     return response.json()
                 })

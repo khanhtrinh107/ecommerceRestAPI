@@ -865,7 +865,7 @@
         formData.append('category',category);
         formData.append('description',description);
         formData.append('image' , image);
-        fetch('http://localhost:8080/product', {
+        fetch('http://localhost:8181/product', {
             method : "post" ,
             body : formData
         })
@@ -912,7 +912,7 @@
             formData.append('image' , image);
         }
         console.log(formData)
-        fetch('http://localhost:8080/product/' + currentProductId , {
+        fetch('http://localhost:8181/product/' + currentProductId , {
             method : "PUT",
             body : formData
         }).then((response) => {
@@ -934,7 +934,7 @@
         e.preventDefault();
         const cateName = document.getElementById('cateName').value;
         const cateDes = document.getElementById('cateDes').value;
-        fetch('http://localhost:8080/category' , {
+        fetch('http://localhost:8181/category' , {
             method : "post",
             headers: {
                 "Content-Type": "application/json",
@@ -962,7 +962,7 @@
 <script>
     document.getElementById('deleteUserBtn').addEventListener('click' , (e) => {
         e.preventDefault();
-        fetch('http://localhost:8080/user/' + currentUserId , {
+        fetch('http://localhost:8181/user/' + currentUserId , {
             method : "delete"
         }).then((response) => {
             return response.json();

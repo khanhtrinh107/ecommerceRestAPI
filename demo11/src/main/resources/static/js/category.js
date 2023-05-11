@@ -1,5 +1,5 @@
 function getAllCategories(){
-    fetch('http://localhost:8080/category')
+    fetch('http://localhost:8181/category')
         .then((response) => {
             return response.json()
         })
@@ -14,7 +14,7 @@ function getAllCategories(){
 }
 
 function getProductByCategory(id){
-    fetch('http://localhost:8080/category/product/' + id)
+    fetch('http://localhost:8181/category/product/' + id)
         .then((response) => {
             return response.json()
         })
@@ -50,7 +50,7 @@ function getProductByCategory(id){
 }
 
 function paging2(categoryId , page){
-    fetch('http://localhost:8080/category/product/' + categoryId + '?page=' + page)
+    fetch('http://localhost:8181/category/product/' + categoryId + '?page=' + page)
         .then((response) => {
             return response.json()
         })

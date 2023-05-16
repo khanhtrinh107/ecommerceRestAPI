@@ -66,6 +66,7 @@ function addComment( productId , userId){
                                                     
                                                 </div>
                                             </div>`
+                document.getElementById("commentArea").value = ''
             })
     }
 }

@@ -48,6 +48,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.formLogin().loginPage("/login")
+                .failureForwardUrl("/login?error=ok")
                 .failureUrl("/login?error=ok")
                         .defaultSuccessUrl("/view/shop")
                                 .permitAll();

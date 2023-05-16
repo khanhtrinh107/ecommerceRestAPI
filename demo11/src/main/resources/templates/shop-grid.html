@@ -51,17 +51,27 @@
                         </ul>
                     </div>
                     <div class="sidebar__item shopee-filter-group shopee-price-range-filter shopee-price-range-filter--vn">
-                        <div class="shopee-filter-group__header shopee-price-range-filter__header">Khoảng Giá</div>
+                        <div style="color: #1c1c1c;
+    font-weight: 700;
+    margin-bottom: 25px;
+font-size: 24px" class="shopee-filter-group__header shopee-price-range-filter__header">Price Range</div>
                         <div class="shopee-filter-group__body shopee-price-range-filter__edit">
-                            <div class="shopee-price-range-filter__inputs"><input oninput="searchByPrice()" id = "minPrice" type="text" maxlength="13"
+                            <div class="shopee-price-range-filter__inputs"><input style="margin-bottom: 10px;" oninput="searchByPrice()" id = "minPrice" type="text" maxlength="13"
                                                                                   class="shopee-price-range-filter__input"
-                                                                                  placeholder="₫ TỪ" value="">
+                                                                                  placeholder="$ From" value="">
                                 <div class="shopee-price-range-filter__range-line"></div>
                                 <input oninput="searchByPrice()" type="text" maxlength="13"  class="shopee-price-range-filter__input" id = "maxPrice"
-                                       placeholder="₫ ĐẾN" value=""></div>
+                                       placeholder="$ To" value=""></div>
                         </div>
                         <button id = "priceBtn" onclick="searchByPrice()"  class="shopee-button-solid shopee-button-solid--primary hdzZKE"
-                                style="background-color: rgb(238, 77, 45);">Áp dụng
+                                style="background-color: rgb(238, 77, 45);
+padding: 5px;
+    background-color: rgb(238, 77, 45);
+    margin-top: 10px;
+    border-radius: 2px;
+    font-size: 20px;
+    width: 80px;
+    height: 40px;">Apply
                         </button>
                     </div>
 

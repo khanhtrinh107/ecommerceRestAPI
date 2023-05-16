@@ -69,6 +69,10 @@ public class ProductServiceImpl implements ProductService {
         product.setImage(cloudinaryService.uploadImage(productDto.getImage()));
         product.setDescription(productDto.getDescription());
         product.setCategory(categoryRepository.findByCategoryName(productDto.getCategory()));
+        product.setAuthor(productDto.getAuthor());
+        product.setPublicationDate(productDto.getPublicationDate());
+        System.out.println(productDto.getAuthor());
+        System.out.println(productDto.getPublicationDate());
         return productRepository.save(product);
     }
 
@@ -86,6 +90,8 @@ public class ProductServiceImpl implements ProductService {
         }
         if(productDto.getDescription() != null) product.setDescription(productDto.getDescription());
         if(productDto.getCategory() != null) product.setCategory(categoryRepository.findByCategoryName(productDto.getCategory()));
+        if(productDto.getAuthor() != null) product.setAuthor(productDto.getAuthor());
+        if(productDto.getPublicationDate() != null ) product.setPublicationDate(productDto.getPublicationDate());
         return productRepository.save(product);
     }
 

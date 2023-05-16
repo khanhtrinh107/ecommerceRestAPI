@@ -145,9 +145,8 @@ function getProduct(id) {
                         <a class="primary-btn" onclick="addToCart('${data.productId}', '${data.productName}' ,'${data.image}', '${data.price}', 1);" href="javascript:void(0);">ADD TO CARD</a>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
-                            <li><b>Availability</b> <span>In Stock</span></li>
-                            <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
-                            <li><b>Weight</b> <span>0.5 kg</span></li>
+                            <li><b>Author</b> <span>${data.author}</span></li>
+                            <li><b>Publication Date</b> <span>${new Date(data.publicationDate).toString().split(" ")[1] + ' ' + new Date(data.publicationDate).toString().split(" ")[2] + ' '+ new Date(data.publicationDate).toString().split(" ")[3] }   <span>   Free pickup today</span></span></li>
                             <li><b>Share on</b>
                                 <div class="share">
                                     <a href="#"><i class="fa fa-facebook"></i></a>

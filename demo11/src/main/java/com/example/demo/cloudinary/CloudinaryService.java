@@ -19,10 +19,8 @@ public class CloudinaryService {
     }
 
     public String uploadImage(MultipartFile file) throws IOException {
-        Map<String, String> params = ObjectUtils.asMap(
-                "public_id", "my_image",
-                "overwrite", "true"
-        );
-        return cloudinary.uploader().upload(file.getBytes(), params).get("url").toString();
+        Map r =  cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+        String img = (String) r.get("secure_url");
+        return  img;
     }
 }

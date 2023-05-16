@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -48,13 +51,18 @@ public class ProductController {
     }
    // @PreAuthorize("hasRole('ADMIN') or hasRole('EDITOR')")
     @PostMapping("/product")
-    public ResponseEntity<?> addProduct(@RequestParam(name = "productName") String productName  , @RequestParam(name = "image")MultipartFile file, @RequestParam(name = "price") String price , @RequestParam(name = "category") String category , @RequestParam(name = "description") String description) throws ObjectExistedException, IOException {
+    public ResponseEntity<?> addProduct(@RequestParam(name = "productName") String productName  , @RequestParam(name = "image")MultipartFile file, @RequestParam(name = "price") String price , @RequestParam(name = "category") String category , @RequestParam(name = "description") String description , @RequestParam(name = "publicationDate")String publicationDate , @RequestParam(name = "author") String author) throws ObjectExistedException, IOException, ParseException {
             ProductDto productDto = new ProductDto();
             productDto.setProductName(productName);
             productDto.setCategory(category);
             productDto.setDescription(description);
             productDto.setImage(file);
             productDto.setPrice(price);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-dd-MM");
+        Date date = null;
+        date = formatter.parse(publicationDate);
+            productDto.setPublicationDate(date);
+            productDto.setAuthor(author);
             return new ResponseEntity<>(productService.create(productDto) , HttpStatus.CREATED);
     }
 //    @PreAuthorize("hasRole('ADMIN') or hasRole('EDITOR')")

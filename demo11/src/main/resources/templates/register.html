@@ -349,7 +349,7 @@
             })
             .then((data) => {
                 if(data.userId !== undefined){
-                  window.location.href = "/view/home";
+                  window.location.href = "/view/shop";
                 }
                 else if (data.message !== undefined){
                   document.getElementById("error").innerText = data.message

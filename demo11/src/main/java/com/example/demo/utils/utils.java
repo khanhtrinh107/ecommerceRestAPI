@@ -13,15 +13,15 @@ public class utils {
         }
         return c;
     }
-    public static Map<String,Long> aggregate(Map<Integer,Cart> ms){
-        Map<String,Long> res = new HashMap<>();
-        long sum = 0 , cnt = 0;
+    public static Map<String,Double> aggregate(Map<Integer,Cart> ms){
+        Map<String,Double> res = new HashMap<>();
+        double sum = 0, cnt = 0;
         for(Cart cart : ms.values()){
             sum += cart.getPrice() * cart.getQuantity();
             cnt += cart.getQuantity();
         }
        res.put("count" , cnt);
-        res.put("amount1" , sum);
+        res.put("amount1" , Double.parseDouble(String.format("%.2f" , sum)));
         return res;
     }
 }

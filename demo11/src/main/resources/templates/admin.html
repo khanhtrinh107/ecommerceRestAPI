@@ -339,6 +339,14 @@
                                             <textarea class="form-control" id = "productDescription" required></textarea>
                                         </div>
                                         <div class="form-group">
+                                            <label>Author</label>
+                                            <input type="text" id = "author" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Publication Date</label>
+                                            <input type="date" id = "publicationDate" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
                                             <label>Category</label>
                                             <div >
                                                 <select style="width: 100%" id = "categorySelection">
@@ -859,13 +867,17 @@
         const select = document.getElementById('categorySelection');
         const category = select.options[select.selectedIndex].value;
         const image = document.getElementById("uploadImg").files[0];
+        const publicationDate = document.getElementById("publicationDate").value
+        const author = document.getElementById("author").value
         const formData = new FormData();
         formData.append('productName',productName);
         formData.append('price',price);
         formData.append('category',category);
         formData.append('description',description);
         formData.append('image' , image);
-        fetch('http://localhost:8181/product', {
+        formData.append('publicationDate' , publicationDate);
+        formData.append('author' , author);
+        fetch('http://localhost:8080/product'
             method : "post" ,
             body : formData
         })
@@ -878,8 +890,16 @@
                 }
                 else{
                     console.log('ok')
+                    document.getElementById("error").innerText = '';
                     document.getElementById("addEmployeeModal").style.display = "none";
                     document.querySelector(".modal-backdrop").style.display = "none";
+                    document.getElementById("productName").value = '';
+                    document.getElementById("price").value = '';
+                    document.getElementById("productDescription").value = '';
+                    document.getElementById("categorySelection").value = '';
+                    document.getElementById("img").style.display = "none";
+                    document.getElementById("publicationDate").value = '';
+                    document.getElementById("author").value = '';
                 }
             })
     })

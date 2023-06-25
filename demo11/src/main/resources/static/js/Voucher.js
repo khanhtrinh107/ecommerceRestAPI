@@ -1,6 +1,6 @@
 
 function getVoucherByUserId(userId){
-    fetch('http://localhost:8080/voucher/' + userId)
+    fetch('http://localhost:8181/voucher/' + userId)
         .then((response) => {
             return response.json()
         })
@@ -46,7 +46,7 @@ function getVoucherByUserId(userId){
 
 function checkVoucher(userId){
     let vc = document.getElementById("voucherText").value
-    fetch('http://localhost:8080/voucher/' + userId)
+    fetch('http://localhost:8181/voucher/' + userId)
         .then((response) => {
             return response.json()
         })
@@ -73,7 +73,7 @@ function payment(id){
     if(id === 'null'){
         window.location.href = "/login"
     }
-    fetch('http://localhost:8080/cart/pay?id=' + id + '&voucher=' + voucher)
+    fetch('http://localhost:8181/cart/pay?id=' + id + '&voucher=' + voucher)
         .then((response) => {
             return response.json()
         })

@@ -1,5 +1,5 @@
 function getAll() {
-    fetch('http://localhost:8080/product/search')
+    fetch('http://localhost:8181/product/search')
         .then((response) => {
             return response.json()
         })
@@ -12,7 +12,7 @@ function getAll() {
 }
 
 function search(keyword) {
-    fetch('http://localhost:8080/product/search?keyword=' + keyword)
+    fetch('http://localhost:8181/product/search?keyword=' + keyword)
         .then((response) => {
             return response.json()
         })
@@ -27,7 +27,7 @@ function search(keyword) {
 }
 
 function paging4(count, keyword) {
-    fetch('http://localhost:8080/product/search?keyword=' + keyword + '&page=' + count)
+    fetch('http://localhost:8181/product/search?keyword=' + keyword + '&page=' + count)
         .then((response) => {
             return response.json()
         })
@@ -58,7 +58,7 @@ function paging4(count, keyword) {
 
 
 function paging(count) {
-    fetch('http://localhost:8080/product/search?page=' + count)
+    fetch('http://localhost:8181/product/search?page=' + count)
         .then((response) => {
             return response.json()
         })
@@ -95,7 +95,7 @@ function render(arr) {
 function getProduct(id) {
     console.log(id)
     if (id !== undefined) {
-        fetch('http://localhost:8080/product/detail/' + id)
+        fetch('http://localhost:8181/product/detail/' + id)
             .then((response) => {
                 return response.json()
             })
@@ -209,7 +209,7 @@ function getProduct(id) {
 }
 
 function getSameProduct(id) {
-    fetch('http://localhost:8080/product/same-category/' + id)
+    fetch('http://localhost:8181/product/same-category/' + id)
         .then((response) => {
             return response.json()
         })
@@ -244,7 +244,7 @@ function getSameProduct(id) {
 }
 
 function paging3(id, page) {
-    fetch('http://localhost:8080/product/same-category/' + id + '?page=' + page)
+    fetch('http://localhost:8181/product/same-category/' + id + '?page=' + page)
         .then((response) => {
             return response.json()
         })
@@ -300,7 +300,7 @@ function getLastestProduct() {
 }
 
 function getProductSale() {
-    fetch('http://localhost:8080/produt/productSale')
+    fetch('http://localhost:8181/produt/productSale')
         .then((response) => {
             return response.json()
         })
@@ -336,7 +336,7 @@ function getProductSale() {
 let productList = []
 
 function all() {
-    fetch('http://localhost:8080/product/getAll')
+    fetch('http://localhost:8181/product/getAll')
         .then((response) => {
             return response.json()
         })

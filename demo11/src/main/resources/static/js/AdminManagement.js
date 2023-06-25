@@ -35,7 +35,7 @@ function user(){
 
 
 function deleteProduct(){
-    fetch('http://localhost:8080/product/' + currentProductId, {
+    fetch('http://localhost:8181/product/' + currentProductId, {
         method : "delete"
     })
         .then((response) => {
@@ -52,7 +52,7 @@ function deleteProduct(){
 
 function loadProduct(page){
     currentPage = page;
-    fetch('http://localhost:8080/product/search?page=' + page)
+    fetch('http://localhost:8181/product/search?page=' + page)
         .then((response) =>{
             return response.json();
         })
@@ -88,7 +88,7 @@ function loadProduct(page){
 
 function loadCategory(page){
     currentPageCategory = page;
-    fetch('http://localhost:8080/category?page=' + page)
+    fetch('http://localhost:8181/category?page=' + page)
         .then((response) => {
             return  response.json();
         })
@@ -123,7 +123,7 @@ function loadCategory(page){
 
 function loadUser(page){
     currentUserPage = page
-    fetch('http://localhost:8080/user?page=' + page )
+    fetch('http://localhost:8181/user?page=' + page )
         .then((response) => {
             return response.json();
         })
@@ -154,7 +154,7 @@ function loadUser(page){
 }
 
 function getAllCategory(){
-    fetch('http://localhost:8080/category/getAll')
+    fetch('http://localhost:8181/category/getAll')
         .then((response) => {
             return response.json();
         })
@@ -170,7 +170,7 @@ function getAllCategory(){
 
 function getCategoryById(id){
     console.log('ok')
-    fetch('http://localhost:8080/category/' + id)
+    fetch('http://localhost:8181/category/' + id)
         .then((response) => {
             return response.json();
         })
@@ -185,7 +185,7 @@ let currentProduct;
 
 function getProductById(id){
     document.getElementById('editError').innerText = '';
-    fetch('http://localhost:8080/product/' + id)
+    fetch('http://localhost:8181/product/' + id)
         .then((response) => {
             return response.json();
         })
@@ -245,7 +245,7 @@ document.getElementById('editCateBtn').addEventListener('click' , (e) => {
     e.preventDefault();
     const categoryName = document.getElementById('editCategoryName').value
     const description = document.getElementById('editCategoryDes').value
-    fetch('http://localhost:8080/category/' + currentCategoryId , {
+    fetch('http://localhost:8181/category/' + currentCategoryId , {
         method : "put",
         headers : {
             "Content-Type": "application/json",
@@ -272,7 +272,7 @@ document.getElementById('editCateBtn').addEventListener('click' , (e) => {
 document.getElementById('deleteCategoryBtn').addEventListener('click' , (e) => {
     e.preventDefault();
     console.log(currentCategoryId)
-    fetch('http://localhost:8080/category/' + currentCategoryId , {
+    fetch('http://localhost:8181/category/' + currentCategoryId , {
         method : 'delete'
     }).then((response) => {
         return response.json()
